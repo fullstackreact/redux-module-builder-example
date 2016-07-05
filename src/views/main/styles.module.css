@@ -1,0 +1,31 @@
+@import url("../../styles/base.css");
+@import url("../../styles/colors.css");
+@import url("../../styles/queries.css");
+
+.wrapper {
+  min-height: 300px;
+  max-height: 450px;
+
+  background-color: var(--light-blue);
+  border: 1px solid color(var(--light-blue) blackness(20%));
+  display: flex;
+  flex-direction: column;
+  /*justify-content: center;*/
+
+  margin: var(--padding);
+}
+
+.header {
+  /*display: flex;*/
+  padding: 10px;
+  border: 1px solid var(--dark-blue);
+  background: var(--dark-blue);
+}
+
+.content {
+  flex: 2;
+  overflow: auto;
+
+  @media (--screen-phone-lg) {
+  }
+}

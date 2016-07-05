@@ -1,0 +1,15 @@
+@import url("../../../styles/base.css");
+
+.content {
+  padding: var(--padding);
+
+  display: flex;
+  flex-direction: row;
+}
+
+.widget {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
