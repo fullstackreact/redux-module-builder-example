@@ -5,11 +5,11 @@ import styles from './styles.module.css';
 
 export class Header extends React.Component {
   render() {
-    const {title} = this.props;
+    const {event} = this.props;
 
     return (
       <div className={styles.topbar}>
-        <Link className={styles.logo} to="/"><h1>{title}</h1></Link>
+        {event && <Link className={styles.logo} to="/"><h1>{event.name}</h1></Link>}
         <section>
           Fullstack.io
         </section>
@@ -19,11 +19,11 @@ export class Header extends React.Component {
 }
 
 Header.propTypes = {
-  title: T.string
+  event: T.object
 }
 
 Header.defaultProps = {
-  title: 'liveStream'
+  object: {name: 'liveStream'}
 }
 
 export default Header

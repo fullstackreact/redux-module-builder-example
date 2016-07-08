@@ -1,0 +1,21 @@
+.container {
+  margin: 0 auto;
+  width: 100%;
+
+  .header {
+    font-style: italic;
+    font-size: 20em;
+    text-transform: capitalize;
+  }
+
+  .content {
+    float: left;
+    margin: 0;
+    width: 33%;
+
+    & .entity {
+      clear: both;
+    }
+
+  }
+}

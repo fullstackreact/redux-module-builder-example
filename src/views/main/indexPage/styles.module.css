@@ -1,10 +1,12 @@
 @import url("../../../styles/base.css");
 
 .content {
-  padding: var(--padding);
-
   display: flex;
   flex-direction: row;
+
+  order: 2;
+
+  margin-left: 20px;
 }
 
 .widget {
@@ -12,4 +14,11 @@
   overflow: auto;
   display: flex;
   flex-direction: column;
+}
+
+.images {
+  order: 1;
+}
+.tweetList {
+  order: 2;
 }

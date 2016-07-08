@@ -14,15 +14,30 @@ export const configureStore = ({
 
     let middleware = [
       createApiMiddleware({
-        _debug: true,
         baseUrl: __API_URL__,
         headers: {
           'X-Requested-By': 'liveStream client'
-        }
+        },
+        requestTransforms: [
+          (state, opts) => (req) => {
+            const {users} = state;
+            const {currentUser} = users;
+            if (currentUser) {
+              req.headers['X-Auth-Token'] = currentUser.oauth_token;
+              req.headers['X-Auth-Secret'] = currentUser.oauth_token_secret;
+            }
+            return req;
+          }
+        ]
       }),
       thunkMiddleware,
       routerMiddleware(historyType)
     ]
+
+    // No need for this in the blog article
+    middleware.push(createDebounce({
+      simple: 2000
+    }));
 
     let tools = [];
     if (__DEBUG__) {
@@ -39,11 +54,15 @@ export const configureStore = ({
       ...tools
     )(createStore);
 
+    // initialState is imported from the rootReducer file
+    // as exports and the userInitialState is a parameter
+    // passed into the configureStore function
     const store = finalCreateStore(
       rootReducer,
       Object.assign({}, initialState, userInitialState)
     );
 
+    // Using the `const store =` variable we just created
     const history = syncHistoryWithStore(historyType, store, {
       adjustUrlOnReplay: true
     })

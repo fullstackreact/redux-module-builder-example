@@ -3,37 +3,19 @@ import {createApiHandler, createApiAction} from 'redux-module-builder/src/api'
 
 import '../../utils/array'
 
-export const types = createConstants('event')(
-  'GET_CURRENT',
-  'GET_MEDIA',
+import * as events from './events';
+import * as images from './images'
+
+export const types = createConstants('currentEvent')(
   'TWEET_ARRIVED',
   'MEDIA_ARRIVED'
 );
 
 let ws;
 export const actions = {
-  getCurrent: createApiAction(types.GET_CURRENT)((client, opts, getState, dispatch) => {
-    return client.get({
-      path: '/events/upcoming'
-    })
-    .then(resp => {
-      const {events} = resp;
-      return events.length > 0 ? events[0] : null;
-    })
-  }),
-
-  getLatestImages: createApiAction(types.GET_MEDIA)((client, opts) => {
-    return client.get({
-      path: '/tweets/images'
-    }).then(({tweets}) => {
-      const {statuses} = tweets;
-
-      return statuses.map(t => t.entities.media)
-            .reduce((sum, m) => sum.concat(m), []);
-    })
-  }),
-
-  wsConnect: (tag) => (dispatch, getState) => {
+  wsConnect: (event) => (dispatch, getState) => {
+    const {users} = getState();
+    const {currentUser} = users;
     ws = new WebSocket('ws://' + __API_HOST__ + '/ts');
     ws.onmessage = function (event) {
       let data = event.data;
@@ -41,43 +23,57 @@ export const actions = {
         data = JSON.parse(event.data);
         dispatch({type: types.TWEET_ARRIVED, payload: data, meta: { debounce: 'simple' }})
       } catch (e) {
+        console.log('tweet error?', e);
       }
     };
 
-    ws.onopen = () => ws.send(JSON.stringify({type: 'searchTag', tag}));
+    ws.onopen = () => {
+      ws.send(JSON.stringify({
+        type: 'searchTag', tag: event.hashtag,
+        access_token: currentUser.oauth_token,
+        access_token_secret: currentUser.oauth_token_secret
+      }));
+    }
   },
 
   wsDisconnect: () => (dispatch, getState) => ws.close()
 }
 
 export const reducer = createReducer({
-  ...createApiHandler(types.GET_CURRENT)((state, {payload}) => {
-    return {
-      ...state,
-      loading: false,
-      errors: null,
-      event: payload
-    }
-  }),
-
-  ...createApiHandler(types.GET_MEDIA)((state, {payload}) => {
-    return {
-      ...state,
-      loading: false,
-      images: payload
-    }
-  }),
-
-  [types.TWEET_ARRIVED]: (state, {payload}) => {
+    [types.TWEET_ARRIVED]: (state, {payload}) => {
     if (state.tweetIds.indexOf(payload.id) < 0) {
       const {tweets} = state
-      tweets.shiftMax(payload, 3);
+      tweets.shiftMax(payload, 10);
       const tweetIds = tweets.map(t => t.id);
       return {...state, tweets, tweetIds }
     } else {
       return state;
     }
+  },
+
+  [events.types.GET_UPCOMING_SUCCESS]: (state, {payload}) => {
+    return {
+      ...state,
+      event: payload && payload[0]
+    }
+  },
+
+  [images.types.GET_IMAGES_SUCCESS]: (state, {payload}) => {
+console.log('GET_IMAGES_SUCCESS', payload);
+    const {images} = payload;
+    return {
+      ...state,
+      images
+    }
   }
+
+  // [events.types.GET_IMAGES_SUCCESS]: (state, {payload}) => {
+  //   console.log('GET_IMAGES_SUCCESS', payload);
+  //   return {
+  //     ...state,
+  //     images: payload
+  //   }
+  // }
 });
 
 export const initialState = {

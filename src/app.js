@@ -6,12 +6,14 @@ import './app.css'
 
 import App from 'containers/App/App'
 
-import {hashHistory} from 'react-router'
 import makeRoutes from './routes'
 
-const initialState = {}
+import {hashHistory} from 'react-router'
 import {configureStore} from './redux/configureStore'
-const {store, actions, history} = configureStore({initialState, historyType: hashHistory});
+
+const initialState = {}
+const {store, actions, history} =
+  configureStore({initialState, historyType: hashHistory});
 
 let render = (routerKey = null) => {
   const makeRoutes = require('./routes').default;

@@ -26,13 +26,11 @@ class App extends React.Component {
     }
 
     return (
-      <Provider store={store}>
-        <Router
-          key={routerKey}
-          routes={routes}
-          createElement={createElement}
-          history={history} />
-      </Provider>
+      <Router
+        key={routerKey}
+        routes={routes}
+        createElement={createElement}
+        history={history} />
     )
   }
 
