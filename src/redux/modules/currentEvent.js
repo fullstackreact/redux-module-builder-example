@@ -16,12 +16,22 @@ export const actions = {
   wsConnect: (event) => (dispatch, getState) => {
     const {users} = getState();
     const {currentUser} = users;
-    ws = new WebSocket('ws://' + __API_HOST__ + '/ts');
+    ws = new WebSocket(__WS_URL__ + '/ts');
     ws.onmessage = function (event) {
       let data = event.data;
       try {
         data = JSON.parse(event.data);
-        dispatch({type: types.TWEET_ARRIVED, payload: data, meta: { debounce: 'simple' }})
+        if (data.entities.media && data.entities.media.length > 0) {
+          dispatch({
+            type: types.MEDIA_ARRIVED,
+            payload: data.entities.media[0]
+          })
+        } else {
+          dispatch({
+            type: types.TWEET_ARRIVED,
+            payload: data
+          })
+        }
       } catch (e) {
         console.log('tweet error?', e);
       }
@@ -51,6 +61,15 @@ export const reducer = createReducer({
     }
   },
 
+  [types.MEDIA_ARRIVED]: (state, {payload}) => {
+    const {images} = state;
+    images.shiftMax(payload, 10);
+    return {
+      ...state,
+      images
+    }
+  },
+
   [events.types.GET_UPCOMING_SUCCESS]: (state, {payload}) => {
     return {
       ...state,
@@ -59,21 +78,11 @@ export const reducer = createReducer({
   },
 
   [images.types.GET_IMAGES_SUCCESS]: (state, {payload}) => {
-console.log('GET_IMAGES_SUCCESS', payload);
-    const {images} = payload;
     return {
       ...state,
-      images
+      images: payload
     }
   }
-
-  // [events.types.GET_IMAGES_SUCCESS]: (state, {payload}) => {
-  //   console.log('GET_IMAGES_SUCCESS', payload);
-  //   return {
-  //     ...state,
-  //     images: payload
-  //   }
-  // }
 });
 
 export const initialState = {

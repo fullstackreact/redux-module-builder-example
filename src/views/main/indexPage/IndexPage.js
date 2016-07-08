@@ -6,8 +6,6 @@ import moment from 'moment'
 import styles from './styles.module.css';
 
 import Header from 'components/Header/Header'
-import Bar from 'components/Bar/Bar'
-import Sidebar from 'components/Sidebar/Sidebar'
 
 import TweetList from 'components/TweetList/tweetList';
 import ImageList from 'components/ImageList/imageList';
@@ -16,12 +14,6 @@ export class IndexPage extends React.Component {
   componentWillMount() {
     const {actions} = this.props;
     actions.events.getUpcomingEvents();
-  }
-
-  componentDidMount() {
-    const {actions, currentEvent} = this.props;
-console.log('currentEvent ->', currentEvent);
-    // actions.currentEvent.wsConnect('puppies');
   }
 
   componentWillUnmount() {

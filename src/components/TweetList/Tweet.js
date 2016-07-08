@@ -22,8 +22,8 @@ export class Tweet extends React.Component {
 
         <div className={styles.info}>
           <div className={styles.user}>
-            <img src={user.profile_image_url} />
-            @{user.screen_name}
+            <img src={user && user.profile_image_url} />
+            @{user && user.screen_name}
           </div>
           <div className={styles.date}>
             {formattedDate}

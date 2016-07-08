@@ -1,6 +1,7 @@
 // root reducer
 import { combineReducers } from 'redux';
 import { routerReducer as routing, push } from 'react-router-redux';
+import { createRootReducer } from 'redux-module-builder'
 
 const modules = {
   events: require('./modules/events'),
@@ -16,6 +17,18 @@ export let actions = {
 export let initialState = {}
 export let reducers = {routing};
 
+/*
+ * createRootReducer helper
+ */
+const mod = createRootReducer(modules, {
+  initialInitialState: initialState,
+  initialActions: actions,
+  initialReducers: {routing}
+})
+
+/*
+ * Alternatively, do this manually
+ */
 Object.keys(modules).forEach(key => {
   const container = modules[key];
   initialState[key] = container.initialState || {};

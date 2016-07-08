@@ -23,6 +23,7 @@ const eventsMap = (eventList) => eventList.reduce((sum, e) => ({
   ...sum,
   [e._id]: e
 }), {})
+
 export const reducer = createReducer({
   ...createApiHandler(types.GET_UPCOMING, (apiTypes) => ({
       [apiTypes.LOADING]: (state) => ({...state, loading: true}),
