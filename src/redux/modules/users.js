@@ -82,10 +82,12 @@ export const actions = {
  *
  */
 export const reducer = createReducer({
-  [types.LOGGED_IN]: (state, {payload}) => ({
-    ...state,
-    currentUser: payload
-  })
+  [types.LOGGED_IN]: (state, {payload}) => {
+    return {
+      ...state,
+      currentUser: payload.authResponse
+    }
+  }
 });
 
 const twitterAuth = hello('twitter').getAuthResponse();

@@ -19,8 +19,8 @@ export const configureStore = ({
           'X-Requested-By': 'liveStream client'
         },
         requestTransforms: [
-          (state, opts) => (req) => {
-            const {users} = state;
+          (getState, opts) => (req) => {
+            const {users} = getState();
             const {currentUser} = users;
             if (currentUser) {
               req.headers['x-auth-token'] = currentUser.oauth_token;
