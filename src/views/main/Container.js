@@ -4,9 +4,11 @@ import { connect } from 'react-redux'
 import styles from './styles.module.css'
 
 export class Container extends React.Component {
+
   componentWillReceiveProps(newProps) {
     if (newProps.currentUser !== this.props.currentUser) {
-      console.log('new user logged in');
+      const {actions} = this.props;
+      actions.routing.navigateTo('/');
     }
   }
 

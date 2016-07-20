@@ -23,8 +23,8 @@ export const configureStore = ({
             const {users} = state;
             const {currentUser} = users;
             if (currentUser) {
-              req.headers['X-Auth-Token'] = currentUser.oauth_token;
-              req.headers['X-Auth-Secret'] = currentUser.oauth_token_secret;
+              req.headers['x-auth-token'] = currentUser.oauth_token;
+              req.headers['x-auth-secret'] = currentUser.oauth_token_secret;
             }
             return req;
           }

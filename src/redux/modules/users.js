@@ -84,7 +84,7 @@ export const actions = {
 export const reducer = createReducer({
   [types.LOGGED_IN]: (state, {payload}) => ({
     ...state,
-    user: payload
+    currentUser: payload
   })
 });
 
