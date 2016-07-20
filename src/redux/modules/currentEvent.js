@@ -1,5 +1,5 @@
 import {createConstants, createReducer} from 'redux-module-builder'
-import {createApiHandler, createApiAction} from 'redux-module-builder/src/api'
+import {createApiHandler, createApiAction} from 'redux-module-builder/api'
 
 import '../../utils/array'
 
