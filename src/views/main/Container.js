@@ -1,5 +1,6 @@
 import React, { PropTypes as T } from 'react'
 import { connect } from 'react-redux'
+import classnames from 'classnames'
 
 import styles from './styles.module.css'
 
@@ -23,7 +24,7 @@ export class Container extends React.Component {
 
   render() {
     return (
-      <div className={[styles.wrapper, "ui four column doubling stackable grid container"].join(' ')}>
+      <div className={classnames(styles.wrapper)}>
         {this.renderChildren()}
       </div>
     )

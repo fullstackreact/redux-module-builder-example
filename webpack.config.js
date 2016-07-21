@@ -79,7 +79,7 @@ const cssloader =
 const newloader = Object.assign({}, cssloader, {
   test: /\.module\.css$/,
   include: [src],
-  loader: cssloader.loader.replace(matchCssLoaders, `$1$2?modules&localIdentName=${cssModulesNames}$3`)
+  loader: cssloader.loader.replace(matchCssLoaders, `$1$2?modules&importLoaders=1&localIdentName=${cssModulesNames}$3`)
 });
 config.module.loaders.push(newloader);
 cssloader.test = new RegExp(`[^module]${cssloader.test.source}`);
@@ -94,22 +94,38 @@ config.module.loaders.push({
 // CSS modules
 
 // postcss
-config.postcss = [].concat([
-  require('precss')({}),
-  require('autoprefixer')({}),
-  require('cssnano')({})
-]);
+config.postcss = function(webpack) {
+  return [
+    require('precss')(),
+    require('autoprefixer')({}),
+    require('cssnano')({})
+  ];
+}
 
 // END postcss
 
 // Roots
-config.resolve.root = [src, modules];
+config.resolve.root = [
+  src,
+  modules,
+  join(root, 'semantic', 'src'),
+  // join(root, 'semantic', 'dist')
+];
+config.resolve.moduleDirectories =
+  (config.resolve.moduleDirectories || []).concat([
+    'src',
+    'node_modules',
+    'semantic/src/themes'
+  ])
+
 config.resolve.alias = {
-  css: join(src, 'styles'),
+  css: css,
   containers: join(src, 'containers'),
   components: join(src, 'components'),
   utils: join(src, 'utils'),
-  styles: join(src, 'styles')
+  styles: join(src, 'styles'),
+
+  'semantic': join(root, 'semantic')
 };
 // end Roots
 

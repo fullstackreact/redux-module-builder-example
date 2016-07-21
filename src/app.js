@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import '../semantic/src/semantic.less'
 import 'font-awesome/css/font-awesome.css'
 import './app.css'
 

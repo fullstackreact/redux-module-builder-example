@@ -27,7 +27,7 @@
     "redux-debounce": "^1.0.1",
     "redux-module-builder": "0.1.2",
     "redux-thunk": "^2.1.0",
-    "semantic-ui-css": "^2.2.2"
+    "semantic-ui": "^2.2.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.7",
@@ -60,9 +60,12 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "0.0.26",
     "karma-webpack": "^1.7.0",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
     "mocha": "^2.5.3",
     "phantomjs-polyfill": "0.0.2",
     "phantomjs-prebuilt": "^2.1.7",
+    "postcss-import": "^8.1.2",
     "postcss-loader": "^0.9.1",
     "precss": "^1.4.0",
     "react-addons-test-utils": "^15.2.1",
