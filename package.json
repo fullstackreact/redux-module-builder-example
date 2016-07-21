@@ -26,7 +26,8 @@
     "react-router-redux": "^4.0.5",
     "redux-debounce": "^1.0.1",
     "redux-module-builder": "0.1.2",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "semantic-ui-css": "^2.2.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.6",

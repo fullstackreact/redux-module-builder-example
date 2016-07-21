@@ -1,4 +1,5 @@
 @import url("styles/colors.css");
+@import url("../node_modules/semantic-ui-css/semantic.css");
 
 *,
 *:after,

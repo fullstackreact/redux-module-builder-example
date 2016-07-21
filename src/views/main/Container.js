@@ -23,7 +23,7 @@ export class Container extends React.Component {
 
   render() {
     return (
-      <div className={styles.wrapper}>
+      <div className={[styles.wrapper, "ui four column doubling stackable grid container"].join(' ')}>
         {this.renderChildren()}
       </div>
     )
