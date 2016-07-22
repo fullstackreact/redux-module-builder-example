@@ -3,8 +3,8 @@
 @import url("../../styles/queries.css");
 
 .wrapper {
-  background-color: var(--light-blue);
-  border-top: 1px solid color(var(--light-blue) blackness(20%));
+  // background-color: var(--light-blue);
+  // border-top: 1px solid color(var(--light-blue) blackness(20%));
   display: flex;
   flex-direction: row;
 

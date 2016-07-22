@@ -1,4 +1,7 @@
 .container {
-  flex: 1;
-  align-self: center;
+
+}
+
+.loginColumn {
+  max-width: 450px;
 }
