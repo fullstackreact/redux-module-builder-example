@@ -21,12 +21,12 @@ export const actions = {
       let data = event.data;
       try {
         data = JSON.parse(event.data);
-        if (data.entities.media && data.entities.media.length > 0) {
+        if (data.entites && data.entities.media && data.entities.media.length > 0) {
           dispatch({
             type: types.MEDIA_ARRIVED,
             payload: data.entities.media[0]
           })
-        } else {
+        } else if (!data['msg']) {
           dispatch({
             type: types.TWEET_ARRIVED,
             payload: data
