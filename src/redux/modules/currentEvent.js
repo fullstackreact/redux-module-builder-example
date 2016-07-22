@@ -18,7 +18,8 @@ export const actions = {
   wsConnect: (event) => (dispatch, getState) => {
     const {users} = getState();
     const {currentUser} = users;
-    ws = new WebSocket(__WS_URL__ + '/ts');
+    ws = new WebSocket(__WS_URL__ + '/ts/websocket');
+
     ws.onmessage = function (event) {
       let data = event.data;
       try {
@@ -41,7 +42,7 @@ export const actions = {
 
     ws.onopen = () => {
       ws.send(JSON.stringify({
-        type: 'searchTag', tag: event.hashtag,
+        search_tag: event.hashtag,
         access_token: currentUser.oauth_token,
         access_token_secret: currentUser.oauth_token_secret
       }));
