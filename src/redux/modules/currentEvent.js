@@ -8,7 +8,9 @@ import * as images from './images'
 
 export const types = createConstants('currentEvent')(
   'TWEET_ARRIVED',
-  'MEDIA_ARRIVED'
+  'MEDIA_ARRIVED',
+
+  'DISCONNECTED'
 );
 
 let ws;
@@ -43,6 +45,12 @@ export const actions = {
         access_token: currentUser.oauth_token,
         access_token_secret: currentUser.oauth_token_secret
       }));
+    }
+
+    ws.onclose = () => {
+      console.log('disconnected');
+      actions.wsDisconnect();
+      dispatch({type: types.DISCONNECTED})
     }
   },
 
