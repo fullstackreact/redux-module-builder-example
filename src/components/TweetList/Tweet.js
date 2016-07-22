@@ -2,6 +2,7 @@ import React from 'react'
 import moment from 'moment'
 
 import styles from './tweet.module.css'
+import classNames from 'classnames'
 
 export class Tweet extends React.Component {
   render() {
@@ -18,25 +19,23 @@ export class Tweet extends React.Component {
       .fromNow();
 
     return (
-      <div className={styles.tweet}>
-
-        <div className={styles.info}>
-          <div className={styles.user}>
-            <img src={user && user.profile_image_url} />
-            @{user && user.screen_name}
+      <div className={classNames('event', styles.tweet)}>
+        <div className="label">
+          <img src={user && user.profile_image_url} />
+        </div>
+        <div className="content">
+          <div className="summary">
+            <a className="user">
+              @{user && user.screen_name}
+            </a>
+            <div className="date">
+              {formattedDate}
+            </div>
           </div>
-          <div className={styles.date}>
-            {formattedDate}
+          <div className="extra text">
+           {text}
           </div>
         </div>
-
-        <div className={styles.content}>
-
-          <div className={styles.text}>
-            {text}
-          </div>
-        </div>
-
       </div>
     )
   }

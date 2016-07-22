@@ -2,6 +2,7 @@ import React from 'react'
 
 import Image from './Image'
 import styles from './image.module.css'
+import classNames from 'classnames'
 
 export class ImageList extends React.Component {
   componentDidMount() {
@@ -27,7 +28,7 @@ export class ImageList extends React.Component {
     const {images} = currentEvent;
 
     return (
-      <div className={styles.container}>
+      <div className={classNames('ui', 'small', 'images')}>
         {images && images.map((img, idx) => img && <Image
           key={idx}
           image={img} />)}

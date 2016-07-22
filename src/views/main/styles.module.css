@@ -3,16 +3,6 @@
 @import url("../../styles/queries.css");
 
 .wrapper {
-  // background-color: var(--light-blue);
-  // border-top: 1px solid color(var(--light-blue) blackness(20%));
-  display: flex;
-  flex-direction: row;
-
-  position: absolute;
-  top: var(--topbar-height);
-  justify-content: center;
-
-  width: 100%;
 }
 
 .content {

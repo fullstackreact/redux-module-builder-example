@@ -3,6 +3,7 @@ import moment from 'moment'
 
 import styles from './tweet.module.css'
 import Tweet from './Tweet'
+import classNames from 'classnames'
 
 export class TweetList extends React.Component {
   componentDidMount() {
@@ -28,7 +29,7 @@ export class TweetList extends React.Component {
     const {tweets} = this.props;
 
     return (
-      <div className={styles.tweets}>
+      <div className={classNames('ui', 'feed')}>
       {tweets.map(t => <Tweet
             key={t.id}
             tweet={t} />)}

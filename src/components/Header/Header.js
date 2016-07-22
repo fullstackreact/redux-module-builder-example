@@ -9,13 +9,13 @@ export class Header extends React.Component {
     const {event} = this.props;
 
     return (
-      <div className={classnames(styles.topbar, 'ui sizer')}>
-        {event && <Link className={classnames(styles.logo, 'column')} to="/">
-          <h1 className={classnames('ui huge header')}>{event.name}</h1>
+      <div className={classnames('ui container')}>
+        {event && <Link className={classnames(styles.logo, 'item')} to="/">
+          <h1>{event.name}</h1>
         </Link>}
-        <section className={classnames('ui column')}>
+        <a className={classnames('item')}>
           Fullstack.io
-        </section>
+        </a>
       </div>
     )
   }

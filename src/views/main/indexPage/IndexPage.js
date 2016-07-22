@@ -25,19 +25,25 @@ export class IndexPage extends React.Component {
     const {event, tweets, images} = currentEvent;
 
     return (
-      <div className={styles.wrapper}>
-        <div className={styles.header}>
+      <div>
+        <div className={classNames(styles.header, 'ui', 'menu')}>
           <Header event={event} />
         </div>
-      <div className={styles.content}>
-        <div className={classNames(styles.widget, styles.images)}>
-          <ImageList actions={actions} currentEvent={currentEvent} />
+
+        <div className={classNames(styles.content, 'ui', 'main', 'text', 'container')}>
+          <div className={classNames('ui', 'grid')}>
+
+            <div className={classNames(styles.widget, styles.images, 'six', 'wide', 'column')}>
+                <ImageList actions={actions} currentEvent={currentEvent} />
+            </div>
+        <div className={classNames(styles.widget, styles.tweetList, 'six', 'wide', 'column')}>
+                <TweetList actions={actions} tweets={tweets} currentEvent={currentEvent} />
+            </div>
+
+          </div>
         </div>
-        <div className={classNames(styles.widget, styles.tweetList)}>
-          <TweetList actions={actions} tweets={tweets} currentEvent={currentEvent} />
-        </div>
+
       </div>
-    </div>
     )
   }
 }

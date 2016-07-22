@@ -20,3 +20,14 @@ body {
   padding: 0;
   margin: 0;
 }
+
+
+:global {
+  .ui.feed>.event {
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 7px 8px;
+  }
+}
